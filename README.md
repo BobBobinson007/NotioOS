@@ -70,6 +70,48 @@ To deploy a local instance of NotioOS, ensure Node.js is installed on your syste
 4. **Access the application**:
    The system will be accessible at `http://localhost:3000`.
 
+### Docker Deployment
+
+You can deploy NotioOS using Docker in two ways:
+
+#### 1. Run with Docker Compose (Recommended)
+
+If you just want to run the application without downloading the full source code, create a `docker-compose.yml` file with the following content:
+
+```yaml
+version: '3.8'
+services:
+  notioos:
+    image: ghcr.io/bobbobinson007/notioos:main
+    container_name: notioos-app
+    restart: always
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./db:/app/db
+    # Create a .env file locally with your configuration
+    env_file:
+      - .env
+```
+
+Then run:
+```bash
+docker compose up -d
+```
+
+#### 2. Build and Run Locally
+
+If you have cloned the repository, you can build the image yourself:
+
+1. **Start the application**:
+   ```bash
+   docker compose up -d --build
+   ```
+2. **Access the application**:
+   The system will be accessible at `http://localhost:3000`.
+3. **Persistance**:
+   Data is stored in the `./db` directory, which is mounted as a volume.
+
 ---
 
 ## License
