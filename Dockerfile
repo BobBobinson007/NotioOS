@@ -28,4 +28,8 @@ COPY . .
 EXPOSE 3000
 
 # Command to run the application
+LABEL org.opencontainers.image.source=https://github.com/BobBobinson007/NotioOS
+LABEL org.opencontainers.image.description="NotioOS – Minimalist productivity platform"
+LABEL org.opencontainers.image.licenses=MIT
+
 CMD ["npm", "start"]
