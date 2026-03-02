@@ -1,0 +1,14 @@
+node_modules
+npm-debug.log
+.env
+.git
+.gitignore
+.gitattributes
+Demo/
+Demo.zip
+demo_build/
+docs/
+research/
+*.sqlite
+*.db
+!db/.gitkeep
