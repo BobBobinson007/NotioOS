@@ -1,0 +1,24 @@
+# Dependency folders
+node_modules/
+
+# Local databases
+database.sqlite
+db/*.sqlite
+db/*.db
+!db/.gitkeep
+
+# Environment variables
+.env
+
+# Build/Demo artifacts
+demo_build/
+Demo.zip
+Demo/
+bundle_demo.py
+
+# Documentation and Research (as requested to be ignored)
+/docs/
+/research/
+/rear/
+/lizenz/
+/license/

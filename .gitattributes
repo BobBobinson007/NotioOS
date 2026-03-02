@@ -1,0 +1,13 @@
+# Exclude files from GitHub "Download ZIP" (git archive)
+/docs/ export-ignore
+/research/ export-ignore
+/rear/ export-ignore
+/lizenz/ export-ignore
+/license/ export-ignore
+bundle_demo.py export-ignore
+Demo/ export-ignore
+Demo.zip export-ignore
+demo_build/ export-ignore
+.env export-ignore
+database.sqlite export-ignore
+node_modules/ export-ignore

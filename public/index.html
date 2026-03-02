@@ -1,0 +1,1021 @@
+<!DOCTYPE html>
+<html lang="de" data-theme="dark" data-logo="lines">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NotioOS</title>
+  <meta name="description" content="NotioOS – Your minimalist, structured note system" />
+  <meta name="theme-color" content="#0e0e0f" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="NotioOS" />
+  <meta name="application-name" content="NotioOS" />
+  <link rel="icon" id="favicon" href="/favicon-classic.svg" type="image/svg+xml" />
+  <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+
+<body>
+
+  <!-- ── Auth Shell ──────────────────────────────────────────────────────── -->
+  <div id="auth-shell" class="auth-shell">
+
+    <!-- Register -->
+    <div id="view-register" class="auth-card hidden">
+      <div class="auth-logo">
+        <svg class="logo-mark" width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <rect class="logo-bg" width="40" height="40" rx="10" fill="var(--accent)" />
+          <g class="logo-variant logo-lines">
+            <path d="M12 14h16M12 20h10M12 26h13" stroke="white" stroke-width="2.5" stroke-linecap="round" />
+          </g>
+          <g class="logo-variant logo-orbit">
+            <circle cx="20" cy="20" r="7.5" stroke="white" stroke-width="2.5" fill="none" />
+            <circle cx="27" cy="13" r="2" fill="white" />
+            <path d="M12 24c3 3 7 5 12 5" stroke="white" stroke-width="2.2" stroke-linecap="round" />
+          </g>
+          <g class="logo-variant logo-leaf">
+            <path d="M20 12c3 3 5 6 5 10a5 5 0 1 1-10 0c0-4 2-7 5-10z" stroke="white" stroke-width="2.2" fill="none" />
+            <path d="M22 10c2-3 5-4 8-4" stroke="white" stroke-width="2.2" stroke-linecap="round" />
+          </g>
+        </svg>
+        <span>NotioOS</span>
+      </div>
+      <h1 data-i18n="auth.register.title">Konto erstellen</h1>
+      <p class="auth-sub" data-i18n="auth.register.subtitle">Wähle deinen Avatar und starte dein Notizsystem</p>
+
+      <!-- Avatar picker -->
+      <div class="avatar-picker-label" data-i18n="auth.register.avatarLabel">Dein Avatar</div>
+      <div id="avatar-picker" class="avatar-picker"></div>
+
+      <form id="form-register">
+        <div class="field">
+          <label data-i18n="auth.register.nameLabel">Name</label>
+          <input type="text" id="reg-name" placeholder="Max Mustermann" required
+            data-i18n-placeholder="auth.register.namePlaceholder" />
+        </div>
+        <div class="field">
+          <label data-i18n="auth.register.emailLabel">E-Mail</label>
+          <input type="email" id="reg-email" placeholder="max@example.com" required
+            data-i18n-placeholder="auth.register.emailPlaceholder" />
+        </div>
+        <div class="field">
+          <label data-i18n="auth.register.passwordLabel">Passwort</label>
+          <input type="password" id="reg-password" placeholder="Mindestens 8 Zeichen" required minlength="8"
+            data-i18n-placeholder="auth.register.passwordPlaceholder" />
+        </div>
+        <div id="reg-error" class="error-msg hidden"></div>
+        <button type="submit" class="btn-primary" id="btn-register" data-i18n="auth.register.button">Konto
+          erstellen</button>
+      </form>
+      <p class="auth-switch"><span data-i18n="auth.register.switchText">Bereits ein Konto?</span> <a href="#"
+          id="go-login" data-i18n="auth.login.link">Anmelden</a></p>
+    </div>
+
+    <!-- Login -->
+    <div id="view-login" class="auth-card hidden">
+      <div class="auth-logo">
+        <svg class="logo-mark" width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <rect class="logo-bg" width="40" height="40" rx="10" fill="var(--accent)" />
+          <g class="logo-variant logo-lines">
+            <path d="M12 14h16M12 20h10M12 26h13" stroke="white" stroke-width="2.5" stroke-linecap="round" />
+          </g>
+          <g class="logo-variant logo-orbit">
+            <circle cx="20" cy="20" r="7.5" stroke="white" stroke-width="2.5" fill="none" />
+            <circle cx="27" cy="13" r="2" fill="white" />
+            <path d="M12 24c3 3 7 5 12 5" stroke="white" stroke-width="2.2" stroke-linecap="round" />
+          </g>
+          <g class="logo-variant logo-leaf">
+            <path d="M20 12c3 3 5 6 5 10a5 5 0 1 1-10 0c0-4 2-7 5-10z" stroke="white" stroke-width="2.2" fill="none" />
+            <path d="M22 10c2-3 5-4 8-4" stroke="white" stroke-width="2.2" stroke-linecap="round" />
+          </g>
+        </svg>
+        <span>NotioOS</span>
+      </div>
+      <h1 data-i18n="auth.login.title">Willkommen zurück</h1>
+      <p class="auth-sub" data-i18n="auth.login.subtitle">Melde dich an, um weiterzumachen</p>
+      <form id="form-login">
+        <div class="field">
+          <label data-i18n="auth.login.emailLabel">E-Mail</label>
+          <input type="email" id="login-email" placeholder="max@example.com" required
+            data-i18n-placeholder="auth.login.emailPlaceholder" />
+        </div>
+        <div class="field">
+          <label data-i18n="auth.login.passwordLabel">Passwort</label>
+          <input type="password" id="login-password" placeholder="Dein Passwort" required
+            data-i18n-placeholder="auth.login.passwordPlaceholder" />
+        </div>
+        <div id="login-error" class="error-msg hidden"></div>
+        <button type="submit" class="btn-primary" id="btn-login" data-i18n="auth.login.button">Anmelden</button>
+      </form>
+      <p class="auth-switch"><span data-i18n="auth.login.switchText">Noch kein Konto?</span> <a href="#"
+          id="go-register" data-i18n="auth.login.switchLink">Erstellen</a></p>
+    </div>
+
+    <!-- 2FA Verify (during login) -->
+    <div id="view-2fa-verify" class="auth-card hidden">
+      <div class="auth-logo">
+        <svg class="logo-mark" width="40" height="40" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+          <rect class="logo-bg" width="40" height="40" rx="10" fill="var(--accent)" />
+          <g class="logo-variant logo-lines">
+            <path d="M12 14h16M12 20h10M12 26h13" stroke="white" stroke-width="2.5" stroke-linecap="round" />
+          </g>
+          <g class="logo-variant logo-orbit">
+            <circle cx="20" cy="20" r="7.5" stroke="white" stroke-width="2.5" fill="none" />
+            <circle cx="27" cy="13" r="2" fill="white" />
+            <path d="M12 24c3 3 7 5 12 5" stroke="white" stroke-width="2.2" stroke-linecap="round" />
+          </g>
+          <g class="logo-variant logo-leaf">
+            <path d="M20 12c3 3 5 6 5 10a5 5 0 1 1-10 0c0-4 2-7 5-10z" stroke="white" stroke-width="2.2" fill="none" />
+            <path d="M22 10c2-3 5-4 8-4" stroke="white" stroke-width="2.2" stroke-linecap="round" />
+          </g>
+        </svg>
+        <span>NotioOS</span>
+      </div>
+      <h1 data-i18n="auth.2fa.title">Zwei-Faktor</h1>
+      <p class="auth-sub" id="2fa-verify-sub" data-i18n="auth.2fa.subtitleDefault">Gib den Code ein</p>
+      <form id="form-2fa-verify">
+        <div class="field">
+          <label id="2fa-method-label" data-i18n="auth.2fa.codeLabel">Code</label>
+          <input type="text" id="totp-verify-code" placeholder="123456" maxlength="6" pattern="[0-9]{6}" required
+            autocomplete="one-time-code" inputmode="numeric" data-i18n-placeholder="auth.2fa.codePlaceholder" />
+        </div>
+        <div id="totp-verify-error" class="error-msg hidden"></div>
+        <button type="submit" class="btn-primary" data-i18n="auth.2fa.confirm">Bestätigen</button>
+      </form>
+      <p class="auth-switch"><a href="#" id="cancel-2fa" data-i18n="auth.2fa.back">Zurück zur Anmeldung</a></p>
+    </div>
+  </div>
+
+  <!-- ── App Shell ──────────────────────────────────────────────────────── -->
+  <div id="app-shell" class="app-shell hidden">
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-header">
+        <div class="app-brand">
+          <svg class="logo-mark" width="28" height="28" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+            <rect class="logo-bg" width="40" height="40" rx="10" fill="var(--accent)" />
+            <g class="logo-variant logo-lines">
+              <path d="M12 14h16M12 20h10M12 26h13" stroke="white" stroke-width="2.5" stroke-linecap="round" />
+            </g>
+            <g class="logo-variant logo-orbit">
+              <circle cx="20" cy="20" r="7.5" stroke="white" stroke-width="2.5" fill="none" />
+              <circle cx="27" cy="13" r="2" fill="white" />
+              <path d="M12 24c3 3 7 5 12 5" stroke="white" stroke-width="2.2" stroke-linecap="round" />
+            </g>
+            <g class="logo-variant logo-leaf">
+              <path d="M20 12c3 3 5 6 5 10a5 5 0 1 1-10 0c0-4 2-7 5-10z" stroke="white" stroke-width="2.2"
+                fill="none" />
+              <path d="M22 10c2-3 5-4 8-4" stroke="white" stroke-width="2.2" stroke-linecap="round" />
+            </g>
+          </svg>
+          <span>NotioOS</span>
+        </div>
+        <div class="sidebar-actions">
+          <button class="icon-btn" id="btn-search-open" data-open-search title="Suche öffnen"
+            data-i18n-title="search.open">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+          <button class="icon-btn" id="btn-theme-toggle" title="Theme wechseln" data-i18n-title="btn.themeToggle">
+            <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round">
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+            </svg>
+            <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+              stroke-width="2" stroke-linecap="round" class="hidden">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <nav class="sidebar-nav">
+        <div class="nav-section">
+          <button class="nav-item active" data-view="inbox" id="nav-inbox">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <path d="M22 12h-6l-2 3h-4l-2-3H2" />
+              <path
+                d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z" />
+            </svg>
+            <span data-i18n="nav.inbox">Inbox</span>
+            <span class="badge" id="inbox-badge"></span>
+          </button>
+          <button class="nav-item" data-view="sort" id="nav-sort">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <polyline points="17 1 21 5 17 9" />
+              <path d="M3 11V9a4 4 0 0 1 4-4h14" />
+              <polyline points="7 23 3 19 7 15" />
+              <path d="M21 13v2a4 4 0 0 1-4 4H3" />
+            </svg>
+            <span data-i18n="nav.sort">Einordnung</span>
+          </button>
+        </div>
+
+        <div class="nav-section">
+          <div class="nav-section-label" data-i18n="nav.workspaces">Workspaces</div>
+          <div id="workspace-tree"></div>
+          <button class="nav-item add-item" id="btn-add-workspace">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            <span data-i18n="nav.workspaceAdd">Workspace</span>
+          </button>
+        </div>
+
+        <div class="nav-section">
+          <button class="nav-item" data-view="archive" id="nav-archive">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <polyline points="21 8 21 21 3 21 3 8" />
+              <rect x="1" y="3" width="22" height="5" />
+              <line x1="10" y1="12" x2="14" y2="12" />
+            </svg>
+            <span data-i18n="nav.archive">Archiv</span>
+          </button>
+        </div>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="nav-item" data-view="settings" id="nav-settings">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <circle cx="12" cy="12" r="3" />
+            <path
+              d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+          </svg>
+          <span data-i18n="nav.settings">Einstellungen</span>
+        </button>
+        <div class="user-chip" id="user-chip">
+          <div class="avatar" id="user-avatar">M</div>
+          <span id="user-name-label">Name</span>
+          <button class="icon-btn small" id="btn-logout" title="Abmelden" data-i18n-title="nav.logout">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
+              <polyline points="16 17 21 12 16 7" />
+              <line x1="21" y1="12" x2="9" y2="12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </aside>
+
+    <div class="sidebar-backdrop" id="sidebar-backdrop"></div>
+
+    <!-- Main content -->
+    <main class="main-content" id="main-content">
+      <div class="mobile-topbar">
+        <button class="icon-btn" id="btn-sidebar-toggle" data-i18n-title="nav.menu" data-i18n-aria="nav.menu">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6" />
+            <line x1="3" y1="12" x2="21" y2="12" />
+            <line x1="3" y1="18" x2="21" y2="18" />
+          </svg>
+        </button>
+        <div class="mobile-title">NotioOS</div>
+        <div class="mobile-actions">
+          <button class="icon-btn" id="btn-search-open-mobile" data-open-search title="Suche öffnen"
+            data-i18n-title="search.open">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <circle cx="11" cy="11" r="7" />
+              <line x1="21" y1="21" x2="16.65" y2="16.65" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Inbox view -->
+      <div id="view-inbox" class="view">
+        <div class="view-header">
+          <div>
+            <h2 data-i18n="view.inbox.title">Inbox</h2>
+            <p class="view-sub" data-i18n="view.inbox.subtitle">Alle neuen Notizen</p>
+          </div>
+          <div class="header-actions">
+            <div class="filter-pills" id="inbox-filters">
+              <button class="pill active" data-filter="" data-i18n="filter.all">Alle</button>
+              <button class="pill" data-filter="IDEA" data-i18n="filter.idea">IDEA</button>
+              <button class="pill" data-filter="REF" data-i18n="filter.ref">REF</button>
+              <button class="pill" data-filter="LOG" data-i18n="filter.log">LOG</button>
+            </div>
+            <button class="btn-icon-primary" id="btn-new-note-inbox" title="Neue Notiz" data-i18n-title="btn.newNote"
+              data-i18n-aria="btn.newNote">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="notes-grid" id="inbox-notes"></div>
+      </div>
+
+      <!-- Sorting Machine view -->
+      <div id="view-sort" class="view hidden">
+        <div class="view-header">
+          <div>
+            <h2 data-i18n="view.sort.title">Einordnungsmaschine</h2>
+            <p class="view-sub" data-i18n="view.sort.subtitle">Wische oder klicke zum Einordnen</p>
+          </div>
+        </div>
+        <div class="sort-arena">
+          <div class="sort-hint-left">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <polyline points="15 18 9 12 15 6" />
+            </svg>
+            <span data-i18n="sort.hint.archive">Archiv</span>
+          </div>
+          <div class="sort-stack" id="sort-stack">
+            <div class="sort-empty hidden" id="sort-empty">
+              <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                <polyline points="9 11 12 14 22 4" />
+                <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+              </svg>
+              <p data-i18n="sort.empty">Inbox ist leer</p>
+            </div>
+          </div>
+          <div class="sort-hint-right">
+            <span data-i18n="sort.hint.workspace">Workspace</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <polyline points="9 18 15 12 9 6" />
+            </svg>
+          </div>
+        </div>
+        <div class="sort-actions">
+          <button class="sort-btn archive" id="btn-sort-archive">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <polyline points="21 8 21 21 3 21 3 8" />
+              <rect x="1" y="3" width="22" height="5" />
+            </svg>
+            <span data-i18n="sort.btn.archive">Archiv</span>
+          </button>
+          <button class="sort-btn keep" id="btn-sort-keep">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <polyline points="9 11 12 14 22 4" />
+              <path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" />
+            </svg>
+            <span data-i18n="sort.btn.keep">Behalten</span>
+          </button>
+          <button class="sort-btn workspace" id="btn-sort-workspace">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+            </svg>
+            <span data-i18n="sort.btn.workspace">Workspace</span>
+          </button>
+          <button class="sort-btn danger" id="btn-sort-delete">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-1 14H6L5 6" />
+              <path d="M10 11v6M14 11v6" />
+              <path d="M9 6V4h6v2" />
+            </svg>
+            <span data-i18n="sort.btn.delete">Löschen</span>
+          </button>
+        </div>
+        <div id="sort-workspace-picker" class="modal hidden">
+          <div class="modal-card">
+            <h3 data-i18n="sort.modal.title">Workspace wählen</h3>
+            <div id="sort-ws-list" class="ws-picker-list"></div>
+            <button class="btn-secondary" id="cancel-ws-pick" data-i18n="sort.modal.cancel">Abbrechen</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Workspace view -->
+      <div id="view-workspace" class="view hidden">
+        <div class="view-header">
+          <div>
+            <h2 id="workspace-title" data-i18n="view.workspace.title">Workspace</h2>
+            <p class="view-sub" id="workspace-sub" data-i18n="view.workspace.subtitle">Notizen nach Themen</p>
+          </div>
+          <div class="header-actions">
+            <div class="filter-pills" id="ws-filters">
+              <button class="pill active" data-filter="" data-i18n="filter.all">Alle</button>
+              <button class="pill" data-filter="IDEA" data-i18n="filter.idea">IDEA</button>
+              <button class="pill" data-filter="REF" data-i18n="filter.ref">REF</button>
+              <button class="pill" data-filter="LOG" data-i18n="filter.log">LOG</button>
+            </div>
+            <button class="btn-icon-primary" id="btn-new-note-ws" title="Neue Notiz" data-i18n-title="btn.newNote"
+              data-i18n-aria="btn.newNote">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round">
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
+              </svg>
+            </button>
+            <button class="icon-btn danger" id="btn-delete-workspace" title="Workspace löschen"
+              data-i18n-title="workspace.delete" data-i18n-aria="workspace.delete">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                stroke-linecap="round">
+                <polyline points="3 6 5 6 21 6" />
+                <path d="M19 6l-1 14H6L5 6" />
+                <path d="M10 11v6M14 11v6" />
+                <path d="M9 6V4h6v2" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="notes-grid" id="ws-notes"></div>
+      </div>
+
+      <!-- Archive view -->
+      <div id="view-archive" class="view hidden">
+        <div class="view-header">
+          <div>
+            <h2 data-i18n="view.archive.title">Archiv</h2>
+            <p class="view-sub" data-i18n="view.archive.subtitle">Erledigte und gespeicherte Notizen</p>
+          </div>
+          <div class="header-actions">
+            <div class="filter-pills" id="archive-filters">
+              <button class="pill active" data-filter="" data-i18n="filter.all">Alle</button>
+              <button class="pill" data-filter="IDEA" data-i18n="filter.idea">IDEA</button>
+              <button class="pill" data-filter="REF" data-i18n="filter.ref">REF</button>
+              <button class="pill" data-filter="LOG" data-i18n="filter.log">LOG</button>
+            </div>
+          </div>
+        </div>
+        <div class="notes-grid" id="archive-notes"></div>
+      </div>
+
+      <!-- Settings view -->
+      <div id="view-settings" class="view hidden">
+        <div class="view-header">
+          <div>
+            <h2 data-i18n="view.settings.title">Einstellungen</h2>
+            <p class="view-sub" data-i18n="view.settings.subtitle">Konto & Sicherheit</p>
+          </div>
+        </div>
+        <div class="settings-sections">
+
+          <!-- Profile -->
+          <div class="settings-card">
+            <h3 data-i18n="settings.profile.title">Profil</h3>
+            <div class="settings-row">
+              <div class="avatar large" id="settings-avatar">M</div>
+              <div>
+                <div class="settings-name" id="settings-name"></div>
+                <div class="settings-email" id="settings-email"></div>
+              </div>
+            </div>
+            <div class="avatar-style-label" data-i18n="settings.avatarStyle.label">Profilbild wählen</div>
+            <div id="avatar-style-grid" class="avatar-style-grid"></div>
+          </div>
+
+          <!-- Style Themes -->
+          <div class="settings-card">
+            <h3 data-i18n="settings.style.title">Style Themes</h3>
+            <p class="settings-desc" data-i18n="settings.style.desc">Wähle Hintergrund- und Akzentfarben. Funktioniert
+              in Dark und Light Mode.</p>
+            <div class="theme-grid" id="style-theme-grid">
+              <button class="theme-card" type="button" data-style="classic"
+                style="--theme-accent:#007AFF; --theme-light:#f2f2f7; --theme-dark:#1c1c1e;">
+                <div class="theme-name" data-i18n="settings.style.classic">Classic</div>
+                <div class="theme-swatches">
+                  <span class="theme-swatch theme-light"></span>
+                  <span class="theme-swatch theme-dark"></span>
+                  <span class="theme-swatch theme-accent"></span>
+                </div>
+                <div class="theme-meta" data-i18n="settings.style.classicMeta">Blau / Neutral</div>
+              </button>
+              <button class="theme-card" type="button" data-style="forest"
+                style="--theme-accent:#34C759; --theme-light:#e9f1ec; --theme-dark:#1a231d;">
+                <div class="theme-name" data-i18n="settings.style.forest">Forest</div>
+                <div class="theme-swatches">
+                  <span class="theme-swatch theme-light"></span>
+                  <span class="theme-swatch theme-dark"></span>
+                  <span class="theme-swatch theme-accent"></span>
+                </div>
+                <div class="theme-meta" data-i18n="settings.style.forestMeta">Grün / Ruhig</div>
+              </button>
+              <button class="theme-card" type="button" data-style="sunset"
+                style="--theme-accent:#FF6A3D; --theme-light:#fde7e1; --theme-dark:#2b1f25;">
+                <div class="theme-name" data-i18n="settings.style.sunset">Sunset</div>
+                <div class="theme-swatches">
+                  <span class="theme-swatch theme-light"></span>
+                  <span class="theme-swatch theme-dark"></span>
+                  <span class="theme-swatch theme-accent"></span>
+                </div>
+                <div class="theme-meta" data-i18n="settings.style.sunsetMeta">Warm / Kontrast</div>
+              </button>
+            </div>
+          </div>
+
+          <!-- Language -->
+          <div class="settings-card">
+            <h3 data-i18n="settings.language.title">Sprache</h3>
+            <p class="settings-desc" data-i18n="settings.language.desc">Wähle die Anzeigesprache der Oberfläche.</p>
+            <div class="field">
+              <label data-i18n="settings.language.label">Anzeigesprache</label>
+              <select id="language-select" class="lang-native sr-only" aria-hidden="true">
+                <option value="de">Deutsch</option>
+                <option value="en">English</option>
+                <option value="fr">Français</option>
+                <option value="es">Español</option>
+                <option value="nl">Nederlands</option>
+              </select>
+              <div class="lang-select" id="lang-select">
+                <button class="lang-trigger" type="button" aria-haspopup="listbox" aria-expanded="false"
+                  data-i18n-aria="settings.language.label">
+                  <span class="lang-current">
+                    <span class="lang-flag" aria-hidden="true">🇩🇪</span>
+                    <span class="lang-label">Deutsch</span>
+                  </span>
+                  <svg class="lang-chevron" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <polyline points="6 9 12 15 18 9" />
+                  </svg>
+                </button>
+                <div class="lang-options" role="listbox" aria-label="Language" data-i18n-aria="settings.language.title">
+                  <button class="lang-option" type="button" data-value="de" role="option" aria-selected="true">
+                    <span class="lang-flag" aria-hidden="true">🇩🇪</span>
+                    <span class="lang-name">Deutsch</span>
+                  </button>
+                  <button class="lang-option" type="button" data-value="en" role="option" aria-selected="false">
+                    <span class="lang-flag" aria-hidden="true">🇬🇧</span>
+                    <span class="lang-name">English</span>
+                  </button>
+                  <button class="lang-option" type="button" data-value="fr" role="option" aria-selected="false">
+                    <span class="lang-flag" aria-hidden="true">🇫🇷</span>
+                    <span class="lang-name">Français</span>
+                  </button>
+                  <button class="lang-option" type="button" data-value="es" role="option" aria-selected="false">
+                    <span class="lang-flag" aria-hidden="true">🇪🇸</span>
+                    <span class="lang-name">Español</span>
+                  </button>
+                  <button class="lang-option" type="button" data-value="nl" role="option" aria-selected="false">
+                    <span class="lang-flag" aria-hidden="true">🇳🇱</span>
+                    <span class="lang-name">Nederlands</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TOTP 2FA -->
+          <div class="settings-card">
+            <h3 data-i18n="settings.totp.title">Authenticator-2FA (TOTP)</h3>
+            <p class="settings-desc" data-i18n="settings.totp.desc">Google Authenticator, Authy, etc.</p>
+            <div id="totp-status-area">
+              <div id="totp-disabled-area">
+                <button class="btn-primary" id="btn-setup-2fa" data-i18n="settings.totp.setup">TOTP einrichten</button>
+              </div>
+              <div id="totp-setup-area" class="hidden">
+                <p class="settings-desc" data-i18n="settings.totp.scan">Scanne den QR-Code:</p>
+                <img id="qr-img" src="" alt="QR Code" class="qr-code" />
+                <p class="settings-desc small"><span data-i18n="settings.totp.manual">Oder manuell:</span> <code
+                    id="totp-secret-key"></code></p>
+                <div class="field">
+                  <label data-i18n="settings.totp.codeLabel">Bestätigungs-Code</label>
+                  <input type="text" id="totp-enable-code" placeholder="123456" maxlength="6" inputmode="numeric"
+                    data-i18n-placeholder="settings.totp.codePlaceholder" />
+                </div>
+                <div id="totp-enable-error" class="error-msg hidden"></div>
+                <div class="btn-row">
+                  <button class="btn-primary" id="btn-enable-2fa" data-i18n="settings.totp.enable">Aktivieren</button>
+                  <button class="btn-secondary" id="btn-cancel-2fa-setup"
+                    data-i18n="settings.totp.cancel">Abbrechen</button>
+                </div>
+              </div>
+              <div id="totp-enabled-area" class="hidden">
+                <div class="status-badge success">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                    stroke-linecap="round">
+                    <polyline points="20 6 9 17 4 12" />
+                  </svg>
+                  <span data-i18n="settings.totp.active">TOTP aktiv</span>
+                </div>
+                <button class="btn-danger" id="btn-disable-2fa" data-i18n="settings.totp.disable">Deaktivieren</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Email 2FA -->
+          <div class="settings-card">
+            <h3 data-i18n="settings.email2fa.title">E-Mail-2FA</h3>
+            <p class="settings-desc" data-i18n="settings.email2fa.desc">Erhalte einen Code per E-Mail beim Login.
+              Erfordert konfiguriertes Gmail.</p>
+            <div class="settings-row" style="margin-top:12px;">
+              <span class="status-badge" id="email-2fa-status" data-i18n="settings.email2fa.inactive">Inaktiv</span>
+              <button class="btn-primary" id="btn-toggle-email-2fa"
+                data-i18n="settings.email2fa.enable">Aktivieren</button>
+            </div>
+          </div>
+
+          <div class="settings-card danger-zone">
+            <h3 data-i18n="settings.account.title">Konto</h3>
+            <button class="btn-danger" id="btn-settings-logout" data-i18n="settings.account.logout">Abmelden</button>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ── Welcome Tutorial Modal ────────────────────────────────────────── -->
+  <div id="welcome-modal" class="modal hidden">
+    <div class="modal-card welcome-card">
+      <div class="tutorial-slides" id="tutorial-slides">
+
+        <!-- Step 1: Welcome & Theme -->
+        <div class="tutorial-slide active" data-step="1">
+          <div class="welcome-copy">
+            <div class="welcome-badge">
+              <span class="welcome-badge-dot"></span>
+              <span>NotioOS</span>
+            </div>
+            <h1 class="welcome-title" id="welcome-title">Hallo, dort!</h1>
+            <p class="welcome-sub" data-i18n="welcome.step1.sub">Lass uns dein System nach deinen Wünschen einrichten.
+            </p>
+
+            <div class="welcome-controls">
+              <div class="welcome-control">
+                <div class="control-label" data-i18n="welcome.theme.label">Style Theme</div>
+                <div class="welcome-theme-row">
+                  <button class="welcome-theme-chip" type="button" data-style="classic"
+                    style="--chip-accent:#007AFF; --chip-light:#f2f2f7; --chip-dark:#1c1c1e;">
+                    <span class="chip-swatches"><span class="chip-swatch light"></span><span
+                        class="chip-swatch dark"></span><span class="chip-swatch"></span></span>
+                    <span data-i18n="settings.style.classic">Classic</span>
+                  </button>
+                  <button class="welcome-theme-chip" type="button" data-style="forest"
+                    style="--chip-accent:#2f9e44; --chip-light:#f3f7f4; --chip-dark:#161d19;">
+                    <span class="chip-swatches"><span class="chip-swatch light"></span><span
+                        class="chip-swatch dark"></span><span class="chip-swatch"></span></span>
+                    <span data-i18n="settings.style.forest">Forest</span>
+                  </button>
+                  <button class="welcome-theme-chip" type="button" data-style="sunset"
+                    style="--chip-accent:#FF6A3D; --chip-light:#fff4f1; --chip-dark:#1f171d;">
+                    <span class="chip-swatches"><span class="chip-swatch light"></span><span
+                        class="chip-swatch dark"></span><span class="chip-swatch"></span></span>
+                    <span data-i18n="settings.style.sunset">Sunset</span>
+                  </button>
+                </div>
+              </div>
+              <div class="welcome-control">
+                <div class="control-label" data-i18n="welcome.logo.label">Logo Style</div>
+                <div class="welcome-logo-row">
+                  <button class="logo-style-chip" type="button" data-logo="lines">
+                    <span class="chip-logo">
+                      <svg class="logo-mark" width="24" height="24" viewBox="0 0 40 40">
+                        <rect class="logo-bg" width="40" height="40" rx="10" fill="var(--accent)" />
+                        <g class="logo-variant logo-lines">
+                          <path d="M12 14h16M12 20h10M12 26h13" stroke="white" stroke-width="2.5"
+                            stroke-linecap="round" />
+                        </g>
+                      </svg>
+                    </span>
+                    <span data-i18n="welcome.logo.lines">Lines</span>
+                  </button>
+                  <button class="logo-style-chip" type="button" data-logo="orbit">
+                    <span class="chip-logo">
+                      <svg class="logo-mark" width="24" height="24" viewBox="0 0 40 40">
+                        <rect class="logo-bg" width="40" height="40" rx="10" fill="var(--accent)" />
+                        <g class="logo-variant logo-orbit">
+                          <circle cx="20" cy="20" r="7.5" stroke="white" stroke-width="2.5" fill="none" />
+                          <circle cx="27" cy="13" r="2" fill="white" />
+                          <path d="M12 24c3 3 7 5 12 5" stroke="white" stroke-width="2.2" stroke-linecap="round" />
+                        </g>
+                      </svg>
+                    </span>
+                    <span data-i18n="welcome.logo.orbit">Orbit</span>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Inbox -->
+        <div class="tutorial-slide" data-step="2">
+          <div class="welcome-copy">
+            <div class="wf-icon large tone-accent">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"></polyline>
+                <path
+                  d="M5.45 5.11L2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z">
+                </path>
+              </svg>
+            </div>
+            <h2 class="welcome-title" data-i18n="welcome.step2.title">Deine Inbox</h2>
+            <p class="welcome-sub" data-i18n="welcome.step2.sub">Alle neuen Ideen und Notizen landen zuerst hier.
+              Behalte den Überblick und entscheide später, was damit passiert.</p>
+            <div class="tutorial-demo">
+              <div class="demo-inbox-preview">
+                <div class="demo-note"><span>IDEA</span> Neues Projekt...</div>
+                <div class="demo-note"><span>LOG</span> Meeting Notizen...</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Sorting -->
+        <div class="tutorial-slide" data-step="3">
+          <div class="welcome-copy">
+            <div class="wf-icon large tone-success">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polyline>
+              </svg>
+            </div>
+            <h2 class="welcome-title" data-i18n="welcome.step3.title">Intelligente Einordnung</h2>
+            <p class="welcome-sub" data-i18n="welcome.step3.sub">Nutze die Einordnungsmaschine, um deine Inbox schnell
+              zu leeren. Wische nach links zum Archivieren oder nach rechts in einen Workspace.</p>
+            <div class="tutorial-demo">
+              <div class="demo-swipe-visual">
+                <div class="swipe-hand">
+                  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round">
+                    <path d="m5 14 7-7 7 7"></path>
+                    <path d="M12 7v14"></path>
+                  </svg>
+                </div>
+                <div class="demo-sort-card">Notiz sortieren</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Workspaces -->
+        <div class="tutorial-slide" data-step="4">
+          <div class="welcome-copy">
+            <div class="wf-icon large tone-warm">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
+                stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </div>
+            <h2 class="welcome-title" data-i18n="welcome.step4.title">Strukturierte Workspaces</h2>
+            <p class="welcome-sub" data-i18n="welcome.step4.sub">Erstelle Workspaces für deine Projekte. So findest du
+              immer genau das, was du gerade brauchst.</p>
+            <div class="tutorial-demo">
+              <div class="demo-ws-tree">
+                <div class="demo-ws-item">Projekte</div>
+                <div class="demo-ws-item sub">Website</div>
+                <div class="demo-ws-item">Persönlich</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Ready -->
+        <div class="tutorial-slide" data-step="5">
+          <div class="welcome-copy">
+            <div class="welcome-badge"><span class="welcome-badge-dot"></span><span>Bereit</span></div>
+            <h2 class="welcome-title" data-i18n="welcome.step5.title">Du bist bereit!</h2>
+            <p class="welcome-sub" data-i18n="welcome.step5.sub">NotioOS ist jetzt für dich vorkonfiguriert. Viel Spaß
+              beim Organisieren deiner Gedanken.</p>
+            <div class="welcome-hero-mini">
+              <div class="hero-logo-small">
+                <svg class="logo-mark" width="60" height="60" viewBox="0 0 40 40">
+                  <rect class="logo-bg" width="40" height="40" rx="10" fill="var(--accent)" />
+                  <g class="logo-variant logo-lines">
+                    <path d="M12 14h16M12 20h10M12 26h13" stroke="white" stroke-width="2.5" stroke-linecap="round" />
+                  </g>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="tutorial-footer">
+        <div class="tutorial-dots" id="tutorial-dots">
+          <span class="dot active"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+          <span class="dot"></span>
+        </div>
+        <div class="tutorial-btns">
+          <button class="btn-secondary small hidden" id="btn-tutorial-back" data-i18n="btn.back">Zurück</button>
+          <button class="btn-primary small" id="btn-tutorial-next" data-i18n="btn.next">Weiter</button>
+          <button class="btn-primary small hidden" id="btn-tutorial-finish" data-i18n="welcome.start">Loslegen</button>
+        </div>
+      </div>
+
+      <div class="welcome-hero" id="welcome-hero">
+        <div class="hero-sheen"></div>
+        <div class="hero-orbit orbit-1"></div>
+        <div class="hero-orbit orbit-2"></div>
+        <div class="hero-orbit orbit-3"></div>
+        <div class="hero-apple apple-1"></div>
+        <div class="hero-apple apple-2"></div>
+        <div class="hero-apple apple-3"></div>
+        <div class="hero-stage">
+          <div class="hero-logo">
+            <svg class="logo-mark" width="96" height="96" viewBox="0 0 40 40" fill="none" aria-hidden="true">
+              <rect class="logo-bg" width="40" height="40" rx="10" fill="var(--accent)" />
+              <g class="logo-variant logo-lines">
+                <path d="M12 14h16M12 20h10M12 26h13" stroke="white" stroke-width="2.5" stroke-linecap="round" />
+              </g>
+              <g class="logo-variant logo-orbit">
+                <circle cx="20" cy="20" r="7.5" stroke="white" stroke-width="2.5" fill="none" />
+                <circle cx="27" cy="13" r="2" fill="white" />
+                <path d="M12 24c3 3 7 5 12 5" stroke="white" stroke-width="2.2" stroke-linecap="round" />
+              </g>
+              <g class="logo-variant logo-leaf">
+                <path d="M20 12c3 3 5 6 5 10a5 5 0 1 1-10 0c0-4 2-7 5-10z" stroke="white" stroke-width="2.2"
+                  fill="none" />
+                <path d="M22 10c2-3 5-4 8-4" stroke="white" stroke-width="2.2" stroke-linecap="round" />
+              </g>
+            </svg>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ── Global Search Modal ───────────────────────────────────────────── -->
+  <div id="search-modal" class="search-modal hidden" role="dialog" aria-modal="true" aria-labelledby="search-title">
+    <div class="search-card" role="document">
+      <div class="search-top">
+        <div class="search-title" id="search-title" data-i18n="search.title">Suche</div>
+        <div class="search-shortcuts">
+          <span>Ctrl K</span>
+          <span>/</span>
+        </div>
+        <button class="icon-btn" id="search-close" title="Schließen" aria-label="Schließen">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <line x1="18" y1="6" x2="6" y2="18" />
+            <line x1="6" y1="6" x2="18" y2="18" />
+          </svg>
+        </button>
+      </div>
+      <div class="search-body">
+        <div class="search-input-wrap">
+          <input type="text" id="search-input" placeholder="Notizen durchsuchen…"
+            data-i18n-placeholder="search.standardPlaceholder" autocomplete="off" />
+          <button class="search-clear" id="search-clear" aria-label="Clear">&times;</button>
+        </div>
+        <div id="search-results" class="search-results"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Note Editor Modal ──────────────────────────────────────────────── -->
+  <div id="note-editor-modal" class="modal hidden">
+    <div class="modal-card editor-card">
+      <div class="editor-topbar">
+        <div class="prefix-selector" id="prefix-selector">
+          <button class="prefix-btn active" data-prefix="">—</button>
+          <button class="prefix-btn idea" data-prefix="IDEA">IDEA</button>
+          <button class="prefix-btn ref" data-prefix="REF">REF</button>
+          <button class="prefix-btn log" data-prefix="LOG">LOG</button>
+        </div>
+        <div class="editor-actions">
+          <button class="icon-btn" id="btn-delete-note" title="Notiz löschen" data-i18n-title="editor.delete">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <polyline points="3 6 5 6 21 6" />
+              <path d="M19 6l-1 14H6L5 6" />
+              <path d="M10 11v6M14 11v6" />
+              <path d="M9 6V4h6v2" />
+            </svg>
+          </button>
+          <button class="icon-btn" id="btn-close-editor" title="Schließen" data-i18n-title="editor.close">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+              stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="editor-toolbar">
+        <button class="toolbar-btn" data-cmd="bold" title="Fett"
+          data-i18n-title="editor.bold"><strong>B</strong></button>
+        <button class="toolbar-btn" data-cmd="italic" title="Kursiv" data-i18n-title="editor.italic"><em>I</em></button>
+        <button class="toolbar-btn" data-cmd="underline" title="Unterstrichen"
+          data-i18n-title="editor.underline"><u>U</u></button>
+        <button class="toolbar-btn" data-cmd="strikeThrough" title="Durchgestrichen"
+          data-i18n-title="editor.strike"><s>S</s></button>
+        <div class="toolbar-sep"></div>
+        <button class="toolbar-btn" data-cmd="h1" title="Überschrift 1" data-i18n-title="editor.h1">H1</button>
+        <button class="toolbar-btn" data-cmd="h2" title="Überschrift 2" data-i18n-title="editor.h2">H2</button>
+        <button class="toolbar-btn" data-cmd="h3" title="Überschrift 3" data-i18n-title="editor.h3">H3</button>
+        <div class="toolbar-sep"></div>
+        <button class="toolbar-btn" data-cmd="insertUnorderedList" title="Liste" data-i18n-title="editor.ul">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <line x1="8" y1="6" x2="21" y2="6" />
+            <line x1="8" y1="12" x2="21" y2="12" />
+            <line x1="8" y1="18" x2="21" y2="18" />
+            <circle cx="3" cy="6" r="1.5" />
+            <circle cx="3" cy="12" r="1.5" />
+            <circle cx="3" cy="18" r="1.5" />
+          </svg>
+        </button>
+        <button class="toolbar-btn" data-cmd="insertOrderedList" title="Nummerierte Liste" data-i18n-title="editor.ol">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <line x1="10" y1="6" x2="21" y2="6" />
+            <line x1="10" y1="12" x2="21" y2="12" />
+            <line x1="10" y1="18" x2="21" y2="18" />
+            <path d="M4 6h1v4" />
+            <path d="M4 10h2" />
+            <path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1" />
+          </svg>
+        </button>
+        <button class="toolbar-btn" data-cmd="insertHorizontalRule" title="Trennlinie"
+          data-i18n-title="editor.hr">—</button>
+        <div class="toolbar-sep"></div>
+        <!-- Image & YouTube -->
+        <button class="toolbar-btn" id="tb-image" title="Bild einfügen" data-i18n-title="editor.image">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <rect x="3" y="3" width="18" height="18" rx="2" />
+            <circle cx="8.5" cy="8.5" r="1.5" />
+            <polyline points="21 15 16 10 5 21" />
+          </svg>
+        </button>
+        <button class="toolbar-btn" id="tb-youtube" title="YouTube einfügen" data-i18n-title="editor.youtube">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+            stroke-linecap="round">
+            <path
+              d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46A2.78 2.78 0 0 0 1.46 6.42 29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.96C5.12 20 12 20 12 20s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.96A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z" />
+            <polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02" />
+          </svg>
+        </button>
+      </div>
+
+      <input type="text" id="editor-title" class="editor-title" placeholder="Titel…"
+        data-i18n-placeholder="editor.titlePlaceholder" />
+      <div id="editor-body" class="editor-body" contenteditable="true" data-placeholder="Schreib etwas…"
+        data-i18n-placeholder="editor.bodyPlaceholder"></div>
+
+      <div class="editor-footer">
+        <span id="editor-timestamp" class="editor-ts"></span>
+        <button class="btn-primary small" id="btn-save-note" data-i18n="btn.save">Speichern</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Workspace add modal ───────────────────────────────────────────── -->
+  <div id="ws-add-modal" class="modal hidden">
+    <div class="modal-card small-card">
+      <h3 data-i18n="workspace.modal.title">Workspace erstellen</h3>
+      <div class="field">
+        <label data-i18n="workspace.modal.nameLabel">Name</label>
+        <input type="text" id="ws-add-name" placeholder="z.B. Projekte"
+          data-i18n-placeholder="workspace.modal.namePlaceholder" />
+      </div>
+      <div class="field">
+        <label data-i18n="workspace.modal.parentLabel">Unter-Workspace von (optional)</label>
+        <select id="ws-add-parent"></select>
+      </div>
+      <div class="btn-row">
+        <button class="btn-primary" id="btn-ws-add-confirm" data-i18n="workspace.modal.create">Erstellen</button>
+        <button class="btn-secondary" id="btn-ws-add-cancel" data-i18n="workspace.modal.cancel">Abbrechen</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── Toast ────────────────────────────────────────────────────────── -->
+  <div id="toast" class="toast hidden"></div>
+
+  <script src="/js/i18n.js"></script>
+  <script src="/js/avatars.js"></script>
+  <script src="/js/api.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/workspaces.js"></script>
+  <script src="/js/editor.js"></script>
+  <script src="/js/notes.js"></script>
+  <script src="/js/search.js"></script>
+  <script src="/js/sorting.js"></script>
+  <script src="/js/app.js"></script>
+</body>
+
+</html>
