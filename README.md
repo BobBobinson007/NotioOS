@@ -51,6 +51,9 @@ The NotioOS workflow follows a logical progression of data management:
 
 ## Deployment and Installation
 
+<details>
+<summary><b>Option 1: Installation via NPM (Local Development)</b></summary>
+
 To deploy a local instance of NotioOS, ensure Node.js is installed on your system and follow these steps:
 
 1. **Clone the repository**:
@@ -77,12 +80,14 @@ To deploy a local instance of NotioOS, ensure Node.js is installed on your syste
    ```
 6. **Access the application**:
    The system will be accessible at `http://localhost:3000`.
+</details>
 
-### Docker Deployment
+<details>
+<summary><b>Option 2: Installation via Docker (Container Tutorial)</b></summary>
 
 You can deploy NotioOS using Docker in two ways:
 
-#### 1. Run with Docker Compose (Recommended)
+#### 1. Run with Docker Compose (No source code needed)
 
 If you just want to run the application without downloading the full source code, create a `docker-compose.yml` file with the following content:
 
@@ -119,6 +124,7 @@ If you have cloned the repository, you can build the image yourself:
    The system will be accessible at `http://localhost:3000`.
 3. **Persistance**:
    Data is stored in the `./db` directory, which is mounted as a volume.
+</details>
 
 ---
 
