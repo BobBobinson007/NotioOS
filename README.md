@@ -2,8 +2,6 @@
 
 ![NotioOS Banner](docs/7.png)
 
-[Audio German](docs/a1.mp3)
-
 NotioOS is a high-performance, minimalist productivity platform inspired by modern design principles. It provides a streamlined environment for information capture, organization, and retrieval, prioritizing user experience and data security.
 
 ---
@@ -57,17 +55,27 @@ To deploy a local instance of NotioOS, ensure Node.js is installed on your syste
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/BobBinson007/NotioOS.git
+   git clone https://github.com/BobBobinson007/NotioOS.git
      ```
-2. **Install dependencies**:
+2. **Open the Folder**:
+   ```bash
+   cd NotioOS
+   ```
+
+3. **Edit .env**:
+   ```bash
+   nano .env
+   ```
+   
+4. **Install dependencies**:
    ```bash
    npm install
    ```
-3. **Start the application**:
+5. **Start the application**:
    ```bash
    npm start
    ```
-4. **Access the application**:
+6. **Access the application**:
    The system will be accessible at `http://localhost:3000`.
 
 ### Docker Deployment
