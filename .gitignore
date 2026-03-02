@@ -4,7 +4,7 @@ node_modules/
 # Local databases
 database.sqlite
 db/*.sqlite
-db/*.db
+db/*.db*
 !db/.gitkeep
 
 # Environment variables

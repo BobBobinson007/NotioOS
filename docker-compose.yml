@@ -1,11 +1,6 @@
-version: '3.8'
-
 services:
   notioos:
-    # Use the pre-built image from GHCR:
     image: ghcr.io/bobbobinson007/notioos:main
-    # Or build locally:
-    # build: .
     container_name: notioos-app
     restart: always
     ports:
@@ -14,7 +9,7 @@ services:
       - .env
     volumes:
       - ./db:/app/db
-      - ./public:/app/public # Optional: Link public folder for live UI changes
+      - ./public:/app/public
     networks:
       - notioos-network
 
