@@ -1,4 +1,4 @@
-# NotioOS – Professional Information Management System
+# NotioOS – Just Notes
 
 ![NotioOS Banner](docs/7.png)
 
@@ -57,7 +57,7 @@ To deploy a local instance of NotioOS, ensure Node.js is installed on your syste
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/BobBinson007/oopOS.git
+   git clone https://github.com/BobBinson007/NotioOS.git
      ```
 2. **Install dependencies**:
    ```bash
