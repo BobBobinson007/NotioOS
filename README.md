@@ -92,7 +92,6 @@ You can deploy NotioOS using Docker in two ways:
 If you just want to run the application without downloading the full source code, create a `docker-compose.yml` file with the following content:
 
 ```yaml
-version: '3.8'
 services:
   notioos:
     image: ghcr.io/bobbobinson007/notioos:main
